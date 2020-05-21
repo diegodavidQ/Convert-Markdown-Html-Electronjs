@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after{
+    box-sizing: border-box; /* sumar el padding y margin de todos los elementos e ir calculando para todos los elementos*/
+}
+
+html, body {
+    height: 100%;    
+    width: 100%;    
+    overflow: hidden; /*sin barra lateral*/  
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    background-color: #546e7a;
+}
+
+body, input, textarea {
+    font: menu; /*estilo por defecto del sistema operativo*/
+
+}
+
+textarea, input, div, button { /*sirve en ciertos sistemas operativos le colocan un borde por defecto*/
+    outline: none; 
+    margin: 0;
+}
+
+
+/* Controls Section */
+.controls {
+    background-color: #102027;
+    padding: 8px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+button {
+    margin-right: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #f5f5f5;
+    background-color: #37474f;
+    border: none;
+    padding: .5em 1em;
+    /*border */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    border-radius: 0.25rem;
+}
+
+button:hover {
+    background-color: rgb(73, 163, 150);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+button:active {
+    background-color: rgb(45, 69, 100);
+}
+
+button:disabled {
+    background-color: rgb(159, 167, 165, 0.8);
+    color: #29434e;
+}
+
+
+
+
+
+/*CONTENT STYLE*/
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-height: 100vh;
+    min-width: 100vw;
+    /*position: relative;*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.content {
+    display: flex; /* hacer uso de flexbox para dividir la pantalla luego*/
+    height: 100%;    
+    min-height: 91.8vh;
+    position: initial;
+    margin-top: 3px;
+}
+
+.raw-markdown, .rendered-html {
+    min-height: 100%;
+    max-width: 50%; /*dividir la pantalla*/
+    flex-grow: 1;
+    padding: 1em;
+    overflow: scroll; /*barra lateral*/
+    font-size: 16px;
+    color: #f5f5f5;
+}
+
+.raw-markdown {
+    border: 2px solid #62727b;
+    background-color: #37474f;
+    /*font-family: monospace;   */ 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+
+
+@media (max-width:960px) {
+   
+    .controls {
+        /*display: flex;        */
+        flex-wrap: wrap ; /* elementos se adaptan hacia abajo*/
+        align-content: flex-start;
+        justify-content: start;
+        
+        /*se puede usar grid o flex como arriba*/
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .controls button {
+        margin: 0.19rem 0.19rem;
+    }
+
+    .content {  
+        min-height: 80vh;
+    }
+}
+
+

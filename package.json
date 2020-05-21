@@ -1,0 +1,22 @@
+{
+  "name": "Electronjs_Markdown_to_HTML",
+  "version": "1.0.0",
+  "description": "Este proyecto trata de una aplicación en _Electrón_ que convierte texto de _Markdown_ a _HTML_.",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dompurify": "^2.0.11",
+    "ejs": "^3.1.3",
+    "electron": "^8.3.0",
+    "electron-reload": "^1.5.0",
+    "fs": "0.0.1-security",
+    "fs-extra": "^9.0.0",
+    "jsdom": "^16.2.2",
+    "marked": "^1.1.0"
+  }
+}
