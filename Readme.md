@@ -1,25 +1,29 @@
 # 1. Convertidor de Markdown a HTML
 Este proyecto trata de una aplicación en _Electrón_ que convierte texto de _Markdown_ a _HTML_.
 
+<center>
+<img src="screenshots/simulacion_inicio.gif" width="570">
+</center>
  
 - [1. Convertidor de Markdown a HTML](#1-convertidor-de-markdown-a-html)
-  - [1.1. Instalación y configuración del proyecto](#11-instalaci%c3%b3n-y-configuraci%c3%b3n-del-proyecto)
-  - [1.2. Implementación de la aplicación](#12-implementaci%c3%b3n-de-la-aplicaci%c3%b3n)
-  - [1.3. Módigo para convertir de Markdown a HTML](#13-m%c3%b3digo-para-convertir-de-markdown-a-html)
+  - [1.1. Instalación y configuración del proyecto](#11-instalación-y-configuración-del-proyecto)
+  - [1.2. Implementación de la aplicación](#12-implementación-de-la-aplicación)
+  - [1.3. Módigo para convertir de Markdown a HTML](#13-módigo-para-convertir-de-markdown-a-html)
   - [1.4. Reload en entorno de desarrollo](#14-reload-en-entorno-de-desarrollo)
   - [1.5. Usar template HTML](#15-usar-template-html)
   - [1.6. Usar sanitize](#16-usar-sanitize)
   - [1.7. Seguridad](#17-seguridad)
   - [1.8. Ignorar carpetas y archivos en electron-reload](#18-ignorar-carpetas-y-archivos-en-electron-reload)
   - [1.9. Estilo del archivo html creado](#19-estilo-del-archivo-html-creado)
-  - [1.10. Screenshots](#110-screenshots)
-    - [1.10.1. simulación](#1101-simulaci%c3%b3n)
-      - [1.10.1.1. Simulación inicial](#11011-simulaci%c3%b3n-inicial)
-      - [1.10.1.2. Simulación del botón open](#11012-simulaci%c3%b3n-del-bot%c3%b3n-open)
-      - [1.10.1.3. Simulación de guardar el archivo html](#11013-simulaci%c3%b3n-de-guardar-el-archivo-html)
-      - [1.10.1.4. Simulación de guardar el archivo Markdown](#11014-simulaci%c3%b3n-de-guardar-el-archivo-markdown)
-      - [1.10.1.5. Simulación de guardar con template](#11015-simulaci%c3%b3n-de-guardar-con-template)
-      - [1.10.1.6. Simulación de abrir el archivo con template](#11016-simulaci%c3%b3n-de-abrir-el-archivo-con-template)
+  - [1.10. Crear instalador](#110-crear-instalador)
+  - [1.11. Screenshots](#111-screenshots)
+    - [1.11.1. simulación](#1111-simulación)
+      - [1.11.1.1. Simulación inicial](#11111-simulación-inicial)
+      - [1.11.1.2. Simulación del botón open](#11112-simulación-del-botón-open)
+      - [1.11.1.3. Simulación de guardar el archivo html](#11113-simulación-de-guardar-el-archivo-html)
+      - [1.11.1.4. Simulación de guardar el archivo Markdown](#11114-simulación-de-guardar-el-archivo-markdown)
+      - [1.11.1.5. Simulación de guardar con template](#11115-simulación-de-guardar-con-template)
+      - [1.11.1.6. Simulación de abrir el archivo con template](#11116-simulación-de-abrir-el-archivo-con-template)
   - [Repositorio](#repositorio)
 
 
@@ -434,43 +438,109 @@ function copyStylesDirectory(filePath){
 }
 ```
 
-## 1.10. Screenshots
+## 1.10. Crear instalador
 
-### 1.10.1. simulación 
+Haremos uso del módulo [electron-packager](https://github.com/electron/electron-packager)
 
-#### 1.10.1.1. Simulación inicial
+Electron Packager se ejecuta sobre las siguientes plataformas de **host**:
+
+* Windows (32/64 bit)
+* macOS (formerly known as OS X)
+* Linux (x86/x86_64)
+
+Genera ejecutables para las siguientes plataformas:
+
+* Windows (conocido también como win32 para las arquitecturas de x86, x86_64, y arm64)
+* macOS (conocido como darwin) / Mac App Store (también conocido como mas)*
+* Linux (para arquitecturas x86, x86_64, armv7l, arm64, and mips64el)
+
+**Nota** para los paquetes de destino de `macOS/Mac App Store`: el paquete `.app` solo se puede firmar cuando se construye en una plataforma host de `macOS`.
+
+1. Para crear un archivo ejecutable debemos instalar el módulo ` electron-packager`. La opción `-g` instala de manera global.
+
+```console
+npm install -g electron-packager
+```
+2. Ingresamos al directorio de nuestra aplicación.
+
+El siguiente comando es la forma básica para crear el ejecutable
+
+```console
+electron-packager <sourcedir> <appname> --platform=<platform> --arch=<arch> [optional flags...]
+```
+`--platform` y `--arch` pueden ser omitidos en dos casos:
+
+* Si tú especificas `--all` Se crearán paquetes para todas las combinaciones válidas de plataformas oarquitecturas de destino.
+
+* De lo contrario, se creará un paquete único para la plataforma o arquitectura del host.
+
+Si se omite `appname,` se usará el nombre especificado por "productName" o "name" en el package.json más cercano.
+
+3. Crear el ejecutable según la plataforma:
+
+* Para MacOS:
+
+```console
+electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds
+```
+* Para Linux:
+
+```console
+electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds
+```
+* Para Windows:
+
+```console
+electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName="Electron Tutorial App"
+```
+
+Usaremos el siguiente comando
+
+```console
+electron-packager . --platform=win32 --arch=x64 --icon=resorces/icons/icon_app.ico
+```
+4. Si todo ha salido bien se ha creado una carpeta que contiene el ejecutable de nuestro proyecto.
+<center>
+<img src="screenshots/creado_ejecutable_windows.png" width="570">
+</center>
+
+
+## 1.11. Screenshots
+
+### 1.11.1. simulación 
+
+#### 1.11.1.1. Simulación inicial
 
 <center>
 <img src="screenshots/simulacion_inicio.gif" width="570">
 </center>
 
-#### 1.10.1.2. Simulación del botón open
+#### 1.11.1.2. Simulación del botón open
 
 <center>
 <img src="screenshots/simulacion_open.gif" width="570">
 </center>
 
 
-
-#### 1.10.1.3. Simulación de guardar el archivo html
+#### 1.11.1.3. Simulación de guardar el archivo html
 
 <center>
 <img src="screenshots/simulacion_save_html.gif" width="570">
 </center>
 
-#### 1.10.1.4. Simulación de guardar el archivo Markdown
+#### 1.11.1.4. Simulación de guardar el archivo Markdown
 
 <center>
 <img src="screenshots/simulacion_save_Markdown.gif" width="570">
 </center>
 
-#### 1.10.1.5. Simulación de guardar con template
+#### 1.11.1.5. Simulación de guardar con template
 
 <center>
 <img src="screenshots/simulacion_save_template.gif" width="570">
 </center>
 
-#### 1.10.1.6. Simulación de abrir el archivo con template
+#### 1.11.1.6. Simulación de abrir el archivo con template
 
 <center>
 <img src="screenshots/simulacion_open_template.gif" width="570">
